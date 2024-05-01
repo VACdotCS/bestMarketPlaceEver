@@ -9,10 +9,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 import androidx.navigation.NavBackStackEntry
-import com.kire.market_place_android.presentation.ui.screen.destinations.AdminPanelItemsScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ManagerScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.OrderScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingCartScreenDestination
+import com.kire.market_place_android.presentation.destinations.OrderScreenDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingCartScreenDestination
 
 
 import com.ramcosta.composedestinations.spec.DestinationStyle

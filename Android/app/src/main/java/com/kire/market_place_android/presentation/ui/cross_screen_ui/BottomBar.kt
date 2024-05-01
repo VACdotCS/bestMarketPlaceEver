@@ -1,10 +1,5 @@
 package com.kire.market_place_android.presentation.ui.cross_screen_ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -32,13 +27,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 import androidx.navigation.NavHostController
+import com.kire.market_place_android.presentation.NavGraphs
+import com.kire.market_place_android.presentation.appCurrentDestinationAsState
+import com.kire.market_place_android.presentation.destinations.Destination
 import com.kire.market_place_android.presentation.model.UserRole
 import com.kire.market_place_android.presentation.navigation.util.AppDestinations
-
-import com.kire.market_place_android.presentation.ui.screen.NavGraphs
-import com.kire.market_place_android.presentation.ui.screen.appCurrentDestinationAsState
-import com.kire.market_place_android.presentation.ui.screen.destinations.Destination
-import com.kire.market_place_android.presentation.ui.screen.startAppDestination
+import com.kire.market_place_android.presentation.startAppDestination
 
 import com.kire.market_place_android.presentation.ui.theme.ExtendedTheme
 

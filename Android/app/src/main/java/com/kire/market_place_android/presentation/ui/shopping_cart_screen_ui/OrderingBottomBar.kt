@@ -70,8 +70,8 @@ fun OrderingBottomBar(
                 .fillMaxSize()
                 .padding(
                     top = 28.dp,
-                    start = 56.dp,
-                    end = 56.dp
+                    start = 36.dp,
+                    end = 36.dp
                 ),
             contentAlignment = Alignment.Center
         ) {

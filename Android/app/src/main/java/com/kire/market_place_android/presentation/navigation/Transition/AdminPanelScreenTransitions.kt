@@ -9,12 +9,11 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 import androidx.navigation.NavBackStackEntry
-import com.kire.market_place_android.presentation.ui.screen.destinations.AdminPanelItemsScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.FavouritesScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ManagerScreenDestination
-
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingCartScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelItemsScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelPickUpScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelUsersScreenDestination
+import com.kire.market_place_android.presentation.destinations.ManagerScreenDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingCartScreenDestination
 
 import com.ramcosta.composedestinations.spec.DestinationStyle
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
@@ -22,9 +21,14 @@ import com.ramcosta.composedestinations.utils.route
 
 object AdminPanelScreenTransitions : DestinationStyle.Animated {
 
-    private val destinationsOnRight: List<DirectionDestinationSpec> = listOf(
-        ShoppingCartScreenDestination, ManagerScreenDestination, AdminPanelItemsScreenDestination
-    )
+    private val destinationsOnRight: List<DirectionDestinationSpec> =
+        listOf(
+            ShoppingCartScreenDestination,
+            ManagerScreenDestination,
+            AdminPanelItemsScreenDestination,
+            AdminPanelPickUpScreenDestination,
+            AdminPanelUsersScreenDestination
+        )
 
     override fun AnimatedContentTransitionScope<NavBackStackEntry>.enterTransition(): EnterTransition {
         return if (destinationsOnRight.contains(initialState.route()))

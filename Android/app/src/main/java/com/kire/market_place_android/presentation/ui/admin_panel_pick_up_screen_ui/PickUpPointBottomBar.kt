@@ -1,16 +1,18 @@
-package com.kire.market_place_android.presentation.screen.profile_screen_ui
+package com.kire.market_place_android.presentation.screen.admin_panel_pick_up_screen_ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kire.market_place_android.presentation.ui.theme.ExtendedTheme
@@ -42,18 +45,15 @@ import com.kire.test.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangePasswordBottomBar(
+fun PickUpPointBottomBar(
     showBottomSheet: (Boolean) -> Unit,
     sheetState: SheetState
-){
+) {
 
-    var oldPasswordState by remember {
+    var adress by remember {
         mutableStateOf("")
     }
-    var newPasswordState by remember {
-        mutableStateOf("")
-    }
-    var repeatPasswordState by remember {
+    var managerId by remember {
         mutableStateOf("")
     }
 
@@ -65,7 +65,7 @@ fun ChangePasswordBottomBar(
         sheetState = sheetState,
         dragHandle = {
             Text(
-                text = stringResource(id = R.string.change_password_title),
+                text = stringResource(id = R.string.pick_up_point),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -103,14 +103,14 @@ fun ChangePasswordBottomBar(
 
                     BasicTextField(
                         modifier = Modifier
-                            .height(56.dp)
+                            .height(86.dp)
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(12.dp))
                             .background(ExtendedTheme.colors.profileBar)
                             .padding(16.dp),
-                        value = oldPasswordState,
+                        value = adress,
                         onValueChange = {
-                            oldPasswordState = it
+                            adress = it
                         },
 
                         textStyle = LocalTextStyle.current.copy(
@@ -126,16 +126,16 @@ fun ChangePasswordBottomBar(
                                 horizontalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.key),
+                                    painter = painterResource(id = R.drawable.house),
                                     contentDescription = null,
                                     tint = ExtendedTheme.colors.redAccent,
                                     modifier = Modifier
                                         .size(24.dp)
                                 )
                                 Box {
-                                    if (oldPasswordState.isEmpty())
+                                    if (adress.isEmpty())
                                         Text(
-                                            text = stringResource(id = R.string.old_password_hint),
+                                            text = stringResource(id = R.string.adress),
                                             fontWeight = FontWeight.W400,
                                             color = Color.Gray
                                         )
@@ -145,113 +145,74 @@ fun ChangePasswordBottomBar(
                         }
                     )
 
-                    BasicTextField(
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.manager_id),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+
+                        BasicTextField(
+                            modifier = Modifier
+                                .height(56.dp)
+                                .width(110.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(ExtendedTheme.colors.profileBar)
+                                .padding(16.dp),
+                            value = managerId,
+                            onValueChange = {
+                                managerId = it
+                            },
+                            textStyle = LocalTextStyle.current.copy(
+                                color = Color.Black,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.W400,
+                                textAlign = TextAlign.Center
+                            ),
+                            decorationBox = { innerTextField ->
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    innerTextField()
+                                    if (managerId.isEmpty())
+                                        Text(
+                                            modifier = Modifier.fillMaxHeight(),
+                                            text = stringResource(id = R.string.xxx),
+                                            fontWeight = FontWeight.W400,
+                                            color = Color.Gray
+                                        )
+                                }
+
+                            }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Button(
+                        onClick = {
+                            /*TODO()*/
+                        },
                         modifier = Modifier
                             .height(56.dp)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(ExtendedTheme.colors.profileBar)
-                            .padding(16.dp),
-                        value = newPasswordState,
-                        onValueChange = {
-                            newPasswordState = it
-                        },
-
-                        textStyle = LocalTextStyle.current.copy(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.W400,
-                        ),
-                        decorationBox = { innerTextField ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.key),
-                                    contentDescription = null,
-                                    tint = Color.Black,
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                )
-                                Box {
-                                    if (newPasswordState.isEmpty())
-                                        Text(
-                                            text = stringResource(id = R.string.new_password_hint),
-                                            fontWeight = FontWeight.W400,
-                                            color = Color.Gray
-                                        )
-                                    innerTextField()
-                                }
-                            }
-                        }
-                    )
-
-                    BasicTextField(
-                        modifier = Modifier
-                            .height(56.dp)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(ExtendedTheme.colors.profileBar)
-                            .padding(16.dp),
-                        value = repeatPasswordState,
-                        onValueChange = {
-                            repeatPasswordState = it
-                        },
-
-                        textStyle = LocalTextStyle.current.copy(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.W400,
-                        ),
-                        decorationBox = { innerTextField ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.double_key),
-                                    contentDescription = null,
-                                    tint = Color.Black,
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                )
-                                Box {
-                                    if (repeatPasswordState.isEmpty())
-                                        Text(
-                                            text = stringResource(id = R.string.repeat_password_hint),
-                                            fontWeight = FontWeight.W400,
-                                            color = Color.Gray
-                                        )
-                                    innerTextField()
-                                }
-                            }
-                        }
-                    )
-                }
-
-                Button(
-                    onClick = {
-                        /*TODO()*/
-                    },
-                    modifier = Modifier
-                        .height(56.dp)
-                        .fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = ExtendedTheme.colors.redAccent
-                    )
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.update_password_suggestion),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = ExtendedTheme.colors.redAccent
+                        )
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.save),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }

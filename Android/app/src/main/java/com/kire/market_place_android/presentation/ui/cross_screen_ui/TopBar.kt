@@ -28,14 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kire.market_place_android.presentation.destinations.OrderScreenDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingScreenDestination
 
 import com.kire.market_place_android.presentation.navigation.util.AppDestinations
 import com.kire.market_place_android.presentation.navigation.util.getDirection
 import com.kire.market_place_android.presentation.navigation.util.getIconTop
 import com.kire.market_place_android.presentation.navigation.util.getLabel
 import com.kire.market_place_android.presentation.navigation.util.getPlusButton
-import com.kire.market_place_android.presentation.ui.screen.destinations.OrderScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingScreenDestination
 import com.kire.market_place_android.presentation.ui.theme.ExtendedTheme
 
 import com.kire.test.R

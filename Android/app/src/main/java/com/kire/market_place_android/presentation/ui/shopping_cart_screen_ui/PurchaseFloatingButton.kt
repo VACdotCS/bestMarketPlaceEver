@@ -53,7 +53,7 @@ fun PurchaseFloatingActionButton(
                     text = amount.toString()
                             + " "
                             + stringResource(id = R.string.unit)
-                            + " , "
+                            + ", "
                             + stringResource(id = R.string.rub)
                             + totalSum.toString(),
                     fontWeight = FontWeight.W300,

@@ -2,14 +2,16 @@ package com.kire.market_place_android.presentation.navigation.util
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.kire.market_place_android.presentation.ui.screen.destinations.AdminPanelItemsScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.AdminPanelScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.FavouritesScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ManagerScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.OrderScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ProfileScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingCartScreenDestination
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelItemsScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelPickUpScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelScreenDestination
+import com.kire.market_place_android.presentation.destinations.AdminPanelUsersScreenDestination
+import com.kire.market_place_android.presentation.destinations.FavouritesScreenDestination
+import com.kire.market_place_android.presentation.destinations.ManagerScreenDestination
+import com.kire.market_place_android.presentation.destinations.OrderScreenDestination
+import com.kire.market_place_android.presentation.destinations.ProfileScreenDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingCartScreenDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingScreenDestination
 import com.kire.test.R
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 
@@ -39,7 +41,9 @@ sealed interface AppDestinations {
         @DrawableRes val plusButton: Int?
     ) : AppDestinations {
 
-        ADMIN_PANEL_ITEMS(AdminPanelItemsScreenDestination, R.drawable.admin_panel_icon, R.drawable.admin_panel_icon, R.string.pick_up_points, R.drawable.plus_bold)
+        ADMIN_PANEL_ITEMS(AdminPanelItemsScreenDestination, R.drawable.admin_panel_icon, null, R.string.items, R.drawable.plus_bold),
+        ADMIN_PANEL_USERS(AdminPanelUsersScreenDestination, R.drawable.admin_panel_icon, null, R.string.users, null),
+        ADMIN_PANEL_PICK_UP(AdminPanelPickUpScreenDestination, R.drawable.admin_panel_icon, null, R.string.pick_up_points, R.drawable.plus_bold ),
     }
 
     enum class ManagerDestinations (

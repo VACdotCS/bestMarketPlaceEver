@@ -47,6 +47,7 @@ fun OrderFloatingButton(
                 )
                 Text(
                     text = stringResource(id = R.string.rub) + totalSum.toString()
+                    + " "
                     + "("
                     + amountToGive.toString()
                     + " "

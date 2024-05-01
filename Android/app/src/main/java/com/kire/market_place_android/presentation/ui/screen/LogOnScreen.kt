@@ -38,8 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kire.market_place_android.presentation.destinations.LogOnScreenDestination
 import com.kire.market_place_android.presentation.navigation.Transition.LogOnScreenTransitions
-import com.kire.market_place_android.presentation.ui.screen.destinations.LogOnScreenDestination
 import com.kire.market_place_android.presentation.ui.theme.ExtendedTheme
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination

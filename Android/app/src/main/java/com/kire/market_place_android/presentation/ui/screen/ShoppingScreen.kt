@@ -23,13 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kire.market_place_android.presentation.destinations.ItemAddToCartMenuDestination
 
 import com.kire.market_place_android.presentation.model.FilterRequest
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.navigation.Transition.ShoppingScreenTransitions
 import com.kire.market_place_android.presentation.navigation.util.AppDestinations
+import com.kire.market_place_android.presentation.screen.shopping_screen_ui.ItemCard
 import com.kire.market_place_android.presentation.ui.cross_screen_ui.TopBar
-import com.kire.market_place_android.presentation.ui.shopping_screen_ui.ItemCard
 import com.kire.market_place_android.presentation.ui.shopping_screen_ui.ShoppingScreenSearchBar
 
 import com.kire.test.R
@@ -49,12 +50,12 @@ fun ShoppingScreen(
     paddingValues: PaddingValues = PaddingValues(start = 28.dp, end = 28.dp, bottom = 66.dp)
 ) {
     val itemsLists: List<ProductItem> = listOf(
-        ProductItem(1, "Помидоры", 250.00, "кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(2, "Груши", 300.00,"кг",250.00, Uri.EMPTY, true, ""),
-        ProductItem(3, "Помидоры", 250.00,"кг",300.00, Uri.EMPTY, true, ""),
-        ProductItem(4, "Груши", 300.00,"кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(5, "Помидоры", 250.00,"кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(6, "Груши", 300.00,"кг",250.00, Uri.EMPTY, true, "")
+        ProductItem("Помидоры", "250.00", "кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, true, ""),
+        ProductItem("Помидоры", "250.00","кг","300.00", Uri.EMPTY, true, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Помидоры", "250.00","кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, true, "")
     )
 
     val plusIcon = R.drawable.plus
@@ -102,8 +103,10 @@ fun ShoppingScreen(
                         onButtonClick = {
                             /*TODO()*/
                         },
-                        navigator = navigator,
-                        buttonIcon = plusIcon
+                        buttonIcon = plusIcon,
+                        onClick = {
+                            navigator.navigate(ItemAddToCartMenuDestination)
+                        }
                     )
                 }
             }

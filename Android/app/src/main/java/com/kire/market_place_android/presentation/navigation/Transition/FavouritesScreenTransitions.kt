@@ -9,8 +9,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 import androidx.navigation.NavBackStackEntry
-
-import com.kire.market_place_android.presentation.ui.screen.destinations.ShoppingScreenDestination
+import com.kire.market_place_android.presentation.destinations.ItemAddToCartMenuDestination
+import com.kire.market_place_android.presentation.destinations.ShoppingScreenDestination
 
 import com.ramcosta.composedestinations.spec.DestinationStyle
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
@@ -28,6 +28,8 @@ object FavouritesScreenTransitions : DestinationStyle.Animated{
                 AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
             )+ fadeIn(animationSpec = tween(300, easing = LinearOutSlowInEasing))
+        else if (initialState.route() == ItemAddToCartMenuDestination)
+            EnterTransition.None
         else
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Right,
@@ -41,6 +43,8 @@ object FavouritesScreenTransitions : DestinationStyle.Animated{
                 AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
             )+ fadeOut(animationSpec = tween(300, easing = LinearOutSlowInEasing))
+        else if (targetState.route() == ItemAddToCartMenuDestination)
+            fadeOut(animationSpec = tween(2000, easing = LinearOutSlowInEasing))
         else
             slideOutOfContainer(
                 AnimatedContentTransitionScope.SlideDirection.Left,
@@ -54,6 +58,8 @@ object FavouritesScreenTransitions : DestinationStyle.Animated{
                 AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
             )+ fadeIn(animationSpec = tween(300, easing = LinearOutSlowInEasing))
+        else if (initialState.route() == ItemAddToCartMenuDestination)
+            EnterTransition.None
         else
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Right,
@@ -67,6 +73,8 @@ object FavouritesScreenTransitions : DestinationStyle.Animated{
                 AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
             )+ fadeOut(animationSpec = tween(300, easing = LinearOutSlowInEasing))
+        else if (targetState.route() == ItemAddToCartMenuDestination)
+            fadeOut(animationSpec = tween(2000, easing = LinearOutSlowInEasing))
         else
             slideOutOfContainer(
                 AnimatedContentTransitionScope.SlideDirection.Left,

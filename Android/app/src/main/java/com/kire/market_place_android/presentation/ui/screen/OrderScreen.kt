@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kire.market_place_android.presentation.destinations.OrderScreenDestination
 
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.navigation.Transition.OrderScreenTransitions
@@ -35,7 +36,6 @@ import com.kire.market_place_android.presentation.navigation.util.AppDestination
 import com.kire.market_place_android.presentation.ui.cross_screen_ui.TopBar
 import com.kire.market_place_android.presentation.ui.order_screen_ui.OrderFloatingButton
 import com.kire.market_place_android.presentation.ui.order_screen_ui.OrderItem
-import com.kire.market_place_android.presentation.ui.screen.destinations.OrderScreenDestination
 import com.kire.test.R
 
 import com.ramcosta.composedestinations.annotation.Destination
@@ -46,14 +46,14 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun OrderScreen(
     navigator: DestinationsNavigator,
     shoppingCartItems: List<ProductItem> = listOf(
-        ProductItem(1, "Помидоры", 250.00, "кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(2, "Груши", 300.00,"кг",250.00, Uri.EMPTY, true, ""),
-        ProductItem(3, "Помидоры", 250.00,"кг",300.00, Uri.EMPTY, true, ""),
-        ProductItem(4, "Груши", 300.00,"кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(5, "Помидоры", 250.00,"кг",250.00, Uri.EMPTY, false, ""),
-        ProductItem(6, "Груши", 300.00,"кг",250.00, Uri.EMPTY, true, "")
+        ProductItem("Помидоры", "250.00", "кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, true, ""),
+        ProductItem("Помидоры", "250.00","кг","300.00", Uri.EMPTY, true, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Помидоры", "250.00","кг","250.00", Uri.EMPTY, false, ""),
+        ProductItem("Груши", "300.00","кг","250.00", Uri.EMPTY, true, "")
     ),
-    paddingValues: PaddingValues = PaddingValues(start = 28.dp, end = 28.dp, bottom = 66.dp)
+    paddingValues: PaddingValues = PaddingValues(start = 28.dp, end = 28.dp)
 ) {
 
     BackHandler {
@@ -107,9 +107,7 @@ fun OrderScreen(
 
                         itemsIndexed(
                             shoppingCartItems,
-                            key = { _, item ->
-                                item.id
-                            }
+                            key = null
                         ) { index, item ->
 
                             OrderItem(

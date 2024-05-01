@@ -31,18 +31,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.kire.market_place_android.presentation.destinations.DeliveriesScreenDestination
+import com.kire.market_place_android.presentation.destinations.ProfileScreenDestination
 
 import com.kire.market_place_android.presentation.model.ProfileScreenUserData
 import com.kire.market_place_android.presentation.navigation.Transition.ProfileScreenTransitions
 import com.kire.market_place_android.presentation.navigation.util.AppDestinations
+import com.kire.market_place_android.presentation.screen.profile_screen_ui.ChangePasswordBottomBar
+import com.kire.market_place_android.presentation.screen.profile_screen_ui.ProfileDataBottomBar
 import com.kire.market_place_android.presentation.ui.cross_screen_ui.TopBar
 import com.kire.market_place_android.presentation.ui.profile_screen_ui.ChangePasswordBar
-import com.kire.market_place_android.presentation.ui.profile_screen_ui.ChangePasswordBottomBar
 import com.kire.market_place_android.presentation.ui.profile_screen_ui.PaymentMethod
-import com.kire.market_place_android.presentation.ui.profile_screen_ui.ProfileDataBottomBar
 import com.kire.market_place_android.presentation.ui.profile_screen_ui.PurchaseRelatedInfoBar
 import com.kire.market_place_android.presentation.ui.profile_screen_ui.UserProfileInfo
-import com.kire.market_place_android.presentation.ui.screen.destinations.ProfileScreenDestination
 
 import com.kire.test.R
 
@@ -156,7 +157,7 @@ fun ProfileScreen(
                         else
                             (profileUiState.nextDeliveryDate.month + 1).toString(),
                         onClick = {
-                            /*TODO*/
+                            navigator.navigate(DeliveriesScreenDestination)
                         }
                     )
                 }

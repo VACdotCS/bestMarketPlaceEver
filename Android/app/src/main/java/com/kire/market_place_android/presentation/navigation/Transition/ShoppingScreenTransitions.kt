@@ -9,8 +9,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 
 import androidx.navigation.NavBackStackEntry
-
-import com.kire.market_place_android.presentation.ui.screen.destinations.ItemAddToCartMenuDestination
+import com.kire.market_place_android.presentation.destinations.ItemAddToCartMenuDestination
 
 import com.ramcosta.composedestinations.spec.DestinationStyle
 import com.ramcosta.composedestinations.utils.route

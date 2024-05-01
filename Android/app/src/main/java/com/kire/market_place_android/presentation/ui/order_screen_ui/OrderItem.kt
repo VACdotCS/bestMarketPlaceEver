@@ -46,7 +46,7 @@ import com.kire.test.R
 @Composable
 fun OrderItem(
     name: String,
-    price: Double = 0.0,
+    price: String,
     amount: Double = 0.0,
     orderDate: String = "29.09.23",
     unit: String = "кг"

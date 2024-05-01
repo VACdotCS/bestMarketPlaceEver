@@ -50,7 +50,7 @@ import com.kire.test.R
 @Composable
 fun ShoppingCartItem(
     name: String,
-    price: Double = 0.0,
+    price: String,
     amount: Double = 0.0,
     unit: String = "кг"
 ) {
