@@ -1,5 +1,6 @@
 package com.kire.market_place_android.presentation.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import com.kire.market_place_android.presentation.screen.admin_panel_screen_ui.A
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelPickUpScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelUsersScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -30,6 +32,11 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 fun AdminPanelScreen(
     navigator: DestinationsNavigator
 ) {
+
+    BackHandler {
+        navigator.popBackStack(ProfileScreenDestination, inclusive = true)
+        return@BackHandler
+    }
 
     Column(
         modifier = Modifier

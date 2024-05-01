@@ -1,6 +1,7 @@
 package com.kire.market_place_android.presentation.screen
 
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.navigation.Transition.FavouritesScreenTransitions
-import com.kire.market_place_android.presentation.navigation.Transition.ItemAddToCartMenuScreenTransitions
 import com.kire.market_place_android.presentation.screen.destinations.ItemAddToCartMenuDestination
+import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
 import com.kire.market_place_android.presentation.screen.shopping_screen_ui.ItemCard
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
@@ -34,6 +35,11 @@ fun FavouritesScreen(
     navigator: DestinationsNavigator,
     paddingValues: PaddingValues = PaddingValues(28.dp)
 ) {
+
+    BackHandler {
+        navigator.popBackStack(ProfileScreenDestination, inclusive = true)
+        return@BackHandler
+    }
 
     val favouriteItemsList: List<ProductItem> = listOf(
         ProductItem("Груши", "300.00", "кг", "250.00", Uri.EMPTY, true, ""),

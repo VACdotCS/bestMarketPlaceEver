@@ -2,6 +2,7 @@ package com.kire.market_place_android.presentation.screen
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.MarqueeAnimationMode
 import androidx.compose.foundation.background
@@ -41,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.kire.market_place_android.presentation.model.ProductItem
+import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
 import com.kire.market_place_android.presentation.screen.item_add_to_cart_menu.BottomButtonFinishOperation
 import com.kire.market_place_android.presentation.screen.item_add_to_cart_menu.ItemsAddToCartMenuCarousel
 import com.kire.market_place_android.presentation.screen.item_add_to_cart_menu.ProductItemCounter
@@ -62,6 +64,12 @@ fun ItemAddToCartMenu(
     ),
     navigator: DestinationsNavigator
 ) {
+
+    BackHandler {
+        navigator.popBackStack(ProfileScreenDestination, inclusive = true)
+        return@BackHandler
+    }
+
     var productItemCount by remember {
         mutableIntStateOf(1)
     }

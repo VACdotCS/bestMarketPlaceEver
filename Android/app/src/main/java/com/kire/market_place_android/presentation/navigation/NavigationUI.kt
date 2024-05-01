@@ -2,9 +2,8 @@ package com.kire.market_place_android.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsEditScreen
-import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsScreen
 import com.kire.market_place_android.presentation.screen.AdminPanelScreen
+import com.kire.market_place_android.presentation.screen.DeliveriesScreen
 import com.kire.market_place_android.presentation.screen.FavouritesScreen
 import com.kire.market_place_android.presentation.screen.ItemAddToCartMenu
 import com.kire.market_place_android.presentation.screen.LogInScreen
@@ -13,6 +12,8 @@ import com.kire.market_place_android.presentation.screen.ManagerScreen
 import com.kire.market_place_android.presentation.screen.NavGraphs
 import com.kire.market_place_android.presentation.screen.ProfileScreen
 import com.kire.market_place_android.presentation.screen.ShoppingScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsEditScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsScreen
 import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelPickUpScreen
 import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelUsersScreen
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsEditScreenDestination
@@ -20,6 +21,7 @@ import com.kire.market_place_android.presentation.screen.destinations.AdminPanel
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelPickUpScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelUsersScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.DeliveriesScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.FavouritesScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.ItemAddToCartMenuDestination
 import com.kire.market_place_android.presentation.screen.destinations.LogInScreenDestination
@@ -42,7 +44,11 @@ fun NavigationUI(
         engine = navHostEngine,
         navController = navHostController
     ) {
-
+        composable(DeliveriesScreenDestination) {
+            DeliveriesScreen(
+                navigator = destinationsNavigator
+            )
+        }
         composable(FavouritesScreenDestination) {
             FavouritesScreen(
                 navigator = destinationsNavigator
@@ -94,10 +100,14 @@ fun NavigationUI(
             )
         }
         composable(AdminPanelPickUpScreenDestination) {
-            AdminPanelPickUpScreen()
+            AdminPanelPickUpScreen(
+                navigator = destinationsNavigator
+            )
         }
         composable(AdminPanelUsersScreenDestination) {
-            AdminPanelUsersScreen()
+            AdminPanelUsersScreen(
+                navigator = destinationsNavigator
+            )
         }
     }
 }

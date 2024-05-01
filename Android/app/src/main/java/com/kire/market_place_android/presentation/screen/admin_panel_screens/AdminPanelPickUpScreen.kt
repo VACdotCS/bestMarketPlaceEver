@@ -1,5 +1,6 @@
 package com.kire.market_place_android.presentation.screen.admin_panel_screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,14 +23,21 @@ import com.kire.market_place_android.presentation.model.User
 import com.kire.market_place_android.presentation.model.UserRole
 import com.kire.market_place_android.presentation.screen.admin_panel_pick_up_screen_ui.AdminPickUpCard
 import com.kire.market_place_android.presentation.screen.admin_panel_pick_up_screen_ui.PickUpPointBottomBar
+import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun AdminPanelPickUpScreen(
-    paddingValues: PaddingValues = PaddingValues(28.dp)
+    paddingValues: PaddingValues = PaddingValues(28.dp),
+    navigator: DestinationsNavigator
 ) {
+    BackHandler {
+        navigator.popBackStack(ProfileScreenDestination, inclusive = true)
+        return@BackHandler
+    }
 
     val sheetState = rememberModalBottomSheetState()
 

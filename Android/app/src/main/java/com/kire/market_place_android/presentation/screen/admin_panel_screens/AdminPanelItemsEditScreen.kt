@@ -2,6 +2,7 @@ package com.kire.market_place_android.presentation.screen.admin_panel_screens
 
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.screen.admin_panel_items_edit_screen_ui.AdminPanelIconField
+import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
 import com.kire.market_place_android.presentation.screen.item_add_to_cart_menu.BottomButtonFinishOperation
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
@@ -46,6 +48,11 @@ fun AdminPanelItemsEditScreen(
     navigator: DestinationsNavigator,
     paddingValues: PaddingValues = PaddingValues(28.dp)
 ) {
+    BackHandler {
+        navigator.popBackStack(ProfileScreenDestination, inclusive = true)
+        return@BackHandler
+    }
+
     productItem.apply {
         //TODO
 
