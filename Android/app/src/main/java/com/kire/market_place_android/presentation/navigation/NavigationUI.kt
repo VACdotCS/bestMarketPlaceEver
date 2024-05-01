@@ -2,8 +2,8 @@ package com.kire.market_place_android.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.kire.market_place_android.presentation.screen.AdminPanelItemsEditScreen
-import com.kire.market_place_android.presentation.screen.AdminPanelItemsScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsEditScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelItemsScreen
 import com.kire.market_place_android.presentation.screen.AdminPanelScreen
 import com.kire.market_place_android.presentation.screen.FavouritesScreen
 import com.kire.market_place_android.presentation.screen.ItemAddToCartMenu
@@ -13,9 +13,13 @@ import com.kire.market_place_android.presentation.screen.ManagerScreen
 import com.kire.market_place_android.presentation.screen.NavGraphs
 import com.kire.market_place_android.presentation.screen.ProfileScreen
 import com.kire.market_place_android.presentation.screen.ShoppingScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelPickUpScreen
+import com.kire.market_place_android.presentation.screen.admin_panel_screens.AdminPanelUsersScreen
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsEditScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelPickUpScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelUsersScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.FavouritesScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.ItemAddToCartMenuDestination
 import com.kire.market_place_android.presentation.screen.destinations.LogInScreenDestination
@@ -88,6 +92,12 @@ fun NavigationUI(
             ShoppingScreen(
                 navigator = destinationsNavigator
             )
+        }
+        composable(AdminPanelPickUpScreenDestination) {
+            AdminPanelPickUpScreen()
+        }
+        composable(AdminPanelUsersScreenDestination) {
+            AdminPanelUsersScreen()
         }
     }
 }

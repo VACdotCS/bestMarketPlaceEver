@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination
 
 import androidx.navigation.NavHostController
 import com.kire.market_place_android.presentation.model.UserRole
@@ -33,18 +34,12 @@ import com.kire.market_place_android.presentation.navigation.util.AppBarsDestina
 
 import com.kire.market_place_android.presentation.screen.NavGraphs
 import com.kire.market_place_android.presentation.screen.appCurrentDestinationAsState
-import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsScreenDestination
-import com.kire.market_place_android.presentation.screen.destinations.AdminPanelScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.Destination
-import com.kire.market_place_android.presentation.screen.destinations.FavouritesScreenDestination
-import com.kire.market_place_android.presentation.screen.destinations.ManagerScreenDestination
-import com.kire.market_place_android.presentation.screen.destinations.ProfileScreenDestination
-import com.kire.market_place_android.presentation.screen.destinations.ShoppingCartScreenDestination
-import com.kire.market_place_android.presentation.screen.destinations.ShoppingScreenDestination
 import com.kire.market_place_android.presentation.screen.startAppDestination
 import com.kire.market_place_android.presentation.theme.ExtendedTheme
 
 import com.ramcosta.composedestinations.navigation.navigate
+import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 
 
 /*
@@ -62,86 +57,65 @@ fun BottomBar(
 
     val interactionSource = remember { MutableInteractionSource() }
 
-    var allowedList by remember {
-        mutableStateOf(emptyList<Destination>())
+    val appBarsDestinations: List<DirectionDestinationSpec> = AppBarsDestination.entries.map { it.direction }
+
+    var permittedList by remember {
+        mutableStateOf(emptyList<AppBarsDestination>())
     }
 
     LaunchedEffect(key1 = userRole) {
-        allowedList = when(userRole) {
+        permittedList = when(userRole) {
             UserRole.CLIENT ->
-                listOf(
-                    ShoppingScreenDestination,
-                    FavouritesScreenDestination,
-                    ShoppingCartScreenDestination,
-                    ProfileScreenDestination
-                )
-
+                listOf(AppBarsDestination.MANAGER, AppBarsDestination.ADMIN_PANEL)
             UserRole.MANAGER ->
-                listOf(
-                    ShoppingScreenDestination,
-                    FavouritesScreenDestination,
-                    ShoppingCartScreenDestination,
-                    ProfileScreenDestination,
-                    ManagerScreenDestination
-                )
-
+                listOf(AppBarsDestination.ADMIN_PANEL)
             UserRole.ADMIN ->
-                listOf(
-                    ShoppingScreenDestination,
-                    FavouritesScreenDestination,
-                    ShoppingCartScreenDestination,
-                    ProfileScreenDestination,
-                    AdminPanelScreenDestination
-                )
-
+                listOf(AppBarsDestination.MANAGER)
             UserRole.DEVELOPER ->
-                listOf(
-                    ShoppingScreenDestination,
-                    FavouritesScreenDestination,
-                    ShoppingCartScreenDestination,
-                    ProfileScreenDestination,
-                    AdminPanelScreenDestination,
-                    ManagerScreenDestination
-                )
+                emptyList()
         }
     }
 
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(Color.White)
-            .padding(
-                start = paddingStartEndBottom,
-                end = paddingStartEndBottom,
-                bottom = paddingStartEndBottom
-            ),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    if (appBarsDestinations.contains(currentDestination as DirectionDestinationSpec)) {
 
-        AppBarsDestination.entries.forEach { destination ->
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.White)
+                .padding(
+                    start = paddingStartEndBottom,
+                    end = paddingStartEndBottom,
+                    top = 18.dp,
+                    bottom = 18.dp
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-            allowedList.forEach {dest ->
-                if (dest == destination.direction)
-                    Icon(
-                        painter = painterResource(id = destination.iconBottom!!),
-                        contentDescription = null,
-                        tint =
-                        if (currentDestination == destination.direction)
-                            ExtendedTheme.colors.redAccent
-                        else Color.Black,
-                        modifier = Modifier
-                            .size(30.dp)
-                            .clickable(
-                                interactionSource = interactionSource,
-                                indication = null
-                            ) {
-                                if (currentDestination.route != destination.direction.route)
-                                    navHostController.navigate(destination.direction)
-                            }
-                    )
+            AppBarsDestination.entries.forEach { destination ->
+
+                if (!permittedList.contains(destination))
+                    destination.iconBottom?.let {
+                        Icon(
+                            painter = painterResource(id = it),
+                            contentDescription = null,
+                            tint =
+                            if (currentDestination == destination.direction)
+                                ExtendedTheme.colors.redAccent
+                            else Color.Black,
+                            modifier = Modifier
+                                .size(30.dp)
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
+                                    if (currentDestination.route != destination.direction.route)
+                                        navHostController.navigate(destination.direction)
+                                }
+                        )
+                    }
             }
         }
     }

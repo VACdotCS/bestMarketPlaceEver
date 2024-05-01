@@ -26,6 +26,8 @@ import com.kire.market_place_android.presentation.navigation.util.AppBarsDestina
 import com.kire.market_place_android.presentation.screen.NavGraphs
 import com.kire.market_place_android.presentation.screen.appCurrentDestinationAsState
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelPickUpScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelUsersScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.Destination
 import com.kire.market_place_android.presentation.screen.destinations.FavouritesScreenDestination
 import com.kire.market_place_android.presentation.screen.destinations.ManagerScreenDestination
@@ -51,7 +53,9 @@ fun TopBar(
         AdminPanelItemsScreenDestination,
         ManagerScreenDestination,
         ShoppingCartScreenDestination,
-        ProfileScreenDestination
+        ProfileScreenDestination,
+        AdminPanelPickUpScreenDestination,
+        AdminPanelUsersScreenDestination
     )
 
     if (allowedList.contains(currentDestination)) {
@@ -87,6 +91,7 @@ fun TopBar(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+
                     Icon(
                         painter = painterResource(id = destination.iconTop!!),
                         contentDescription = null,

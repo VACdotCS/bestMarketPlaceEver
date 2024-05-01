@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.sp
 import com.kire.market_place_android.presentation.navigation.Transition.AdminPanelScreenTransitions
 import com.kire.market_place_android.presentation.screen.admin_panel_screen_ui.AdminPanelEntrancePaneUnit
 import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelPickUpScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelUsersScreenDestination
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -52,12 +54,12 @@ fun AdminPanelScreen(
 
         AdminPanelEntrancePaneUnit(
             textValue = stringResource(id = R.string.pick_up_points),
-            onClick = { /* TODO */ }
+            onClick = { navigator.navigate(AdminPanelPickUpScreenDestination) }
         )
 
         AdminPanelEntrancePaneUnit(
             textValue = stringResource(id = R.string.users),
-            onClick = { /* TODO */ }
+            onClick = { navigator.navigate(AdminPanelUsersScreenDestination) }
         )
     }
 }

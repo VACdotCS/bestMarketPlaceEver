@@ -1,10 +1,11 @@
-package com.kire.market_place_android.presentation.screen
+package com.kire.market_place_android.presentation.screen.admin_panel_screens
 
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -20,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.navigation.Transition.AdminPanelItemsScreenTransitions
+import com.kire.market_place_android.presentation.screen.destinations.AdminPanelItemsEditScreenDestination
+import com.kire.market_place_android.presentation.screen.destinations.ItemAddToCartMenuDestination
 import com.kire.market_place_android.presentation.screen.shopping_screen_ui.ItemCard
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
@@ -28,7 +31,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination(style = AdminPanelItemsScreenTransitions::class)
 @Composable
 fun AdminPanelItemsScreen(
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator,
+    paddingValues: PaddingValues = PaddingValues(28.dp)
 ) {
     val itemsList: List<ProductItem> = listOf(
         ProductItem("Груши", "300.00", "кг", "250.00", Uri.EMPTY, true, ""),
@@ -44,7 +48,7 @@ fun AdminPanelItemsScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(horizontal = 28.dp),
+            .padding(paddingValues),
         content = {
             when (itemsList.size) {
                 0 -> {
@@ -62,7 +66,7 @@ fun AdminPanelItemsScreen(
                 }
 
                 else -> LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 128.dp),
+                    columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier
@@ -71,7 +75,8 @@ fun AdminPanelItemsScreen(
                     items(itemsList) { item ->
                         ItemCard(
                             productItem = item,
-                            onButtonClick = { /* TODO */ },
+                            onIconClick = { navigator.navigate(ItemAddToCartMenuDestination) },
+                            onButtonClick = { navigator.navigate(AdminPanelItemsEditScreenDestination) },
                             buttonIcon = editIcon
                         )
                     }

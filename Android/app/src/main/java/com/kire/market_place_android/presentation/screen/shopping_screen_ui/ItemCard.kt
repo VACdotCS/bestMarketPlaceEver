@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -35,8 +37,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.kire.market_place_android.presentation.model.ProductItem
+import com.kire.market_place_android.presentation.screen.destinations.LogOnScreenDestination
 import com.kire.market_place_android.presentation.theme.ExtendedTheme
 import com.kire.test.R
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 /**
  * By Aleksey Timko (de4ltt) 28.04.24*/
@@ -44,6 +48,7 @@ import com.kire.test.R
 @Composable
 fun ItemCard(
     productItem: ProductItem,
+    onIconClick: () -> Unit,
     onButtonClick: () -> Unit,
     @DrawableRes buttonIcon: Int,
 ) {
@@ -51,6 +56,11 @@ fun ItemCard(
     Column(
         modifier = Modifier
             .size(width = 180.dp, height = 280.dp)
+            .pointerInput(Unit) {
+                detectTapGestures {
+                    onIconClick()
+                }
+            }
     ) {
         productItem.apply {
             Box(
@@ -183,11 +193,11 @@ fun ItemCard(
                             ExtendedTheme.colors.redAccent,
                             RoundedCornerShape(5.dp)
                         )
-                        .clickable(
-                            indication = null,
-                            interactionSource = MutableInteractionSource(),
-                            onClick = { TODO() }
-                        ),
+                        .pointerInput(Unit) {
+                            detectTapGestures {
+                                onButtonClick()
+                            }
+                        },
                     contentAlignment = Alignment.Center,
                     content = {
                         Icon(

@@ -78,7 +78,7 @@ fun ShoppingScreen(
                     )
                 }
                 else -> LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 128.dp),
+                    columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier
@@ -87,6 +87,7 @@ fun ShoppingScreen(
                     items(itemsLists) { item ->
                         ItemCard(
                             productItem = item,
+                            onIconClick = { navigator.navigate(ItemAddToCartMenuDestination) },
                             onButtonClick = {
                                 navigator.navigate(ItemAddToCartMenuDestination)
                             },

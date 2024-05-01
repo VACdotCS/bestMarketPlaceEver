@@ -142,7 +142,7 @@ fun ItemAddToCartMenu(
 
         Column(
             modifier = Modifier
-                .padding(top = 415.dp)
+                .padding(top = 405.dp)
                 .fillMaxSize()
                 .background(
                     Color.White,

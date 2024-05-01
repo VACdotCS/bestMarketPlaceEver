@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kire.market_place_android.presentation.model.ProductItem
 import com.kire.market_place_android.presentation.navigation.Transition.FavouritesScreenTransitions
+import com.kire.market_place_android.presentation.navigation.Transition.ItemAddToCartMenuScreenTransitions
+import com.kire.market_place_android.presentation.screen.destinations.ItemAddToCartMenuDestination
 import com.kire.market_place_android.presentation.screen.shopping_screen_ui.ItemCard
 import com.kire.test.R
 import com.ramcosta.composedestinations.annotation.Destination
@@ -65,7 +67,7 @@ fun FavouritesScreen(
                 }
 
                 else -> LazyVerticalGrid(
-                    columns = GridCells.Adaptive(minSize = 128.dp),
+                    columns = GridCells.Fixed(2),
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier
@@ -74,6 +76,7 @@ fun FavouritesScreen(
                     items(favouriteItemsList) { item ->
                         ItemCard(
                             productItem = item,
+                            onIconClick = { navigator.navigate(ItemAddToCartMenuDestination) },
                             onButtonClick = { /* TODO */ },
                             buttonIcon = plusIcon
                         )
