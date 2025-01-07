@@ -9,7 +9,10 @@ import com.example.project.dto.response.OrderDTO;
 import com.example.project.entity.*;
 import com.example.project.exception.*;
 import com.example.project.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class OrderService {
@@ -30,6 +34,7 @@ public class OrderService {
     private UserRepo userRepo;
 
     private OrderDTOMapper dtoMapper;
+    private ObjectMapper objectMapper;
 
     // --> UserService
     private void userRecalculateDiscount(User user) {
@@ -96,11 +101,14 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = {Exception.class})
-    public void create(OrderRequest orderRequest) throws NoSuchElementFoundException, ProductsCountMismatchException {
+    public void create(OrderRequest orderRequest) throws NoSuchElementFoundException, ProductsCountMismatchException, JsonProcessingException {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        PickupPoint pickupPoint = pickupPointRepo
-                .findById(orderRequest.getPickupPointId())
-                .orElseThrow(() -> new NoSuchElementFoundException(Constants.NOT_FOUND_PICKUPPOINT));
+
+        List<PickupPoint> pickupPoints = pickupPointRepo
+                .findAllWithManager();
+
+        PickupPoint pp = pickupPoints.stream().filter((PickupPoint pickupPoint) -> Objects.equals(pickupPoint.getId(), orderRequest.getPickupPointId())).findFirst().get();
+
         DeliveryStatus deliveryStatus = deliveryStatusRepo.findById(1).orElseThrow(); // id1 = В пути
 
         List<OrderedProductRequest> orderedProductsReq = orderRequest.getOrderedProducts();
@@ -110,9 +118,10 @@ public class OrderService {
         Order order = Order.builder()
                 .user(user)
                 .formation_date(LocalDate.now())
-                .pickupPoint(pickupPoint)
+                .pickupPoint(pp)
                 .completed(false)
                 .build();
+
         repository.save(order);
 
         var productsIds = orderedProductsReq
@@ -127,7 +136,7 @@ public class OrderService {
             try {
                 product = products
                         .stream()
-                        .filter(p -> p.getProduct_id() == id)
+                        .filter(p -> p.getProductId() == id)
                         .toList()
                         .get(0);
             }
@@ -135,7 +144,7 @@ public class OrderService {
                 throw new NoSuchElementFoundException(Constants.NOT_FOUND_PRODUCT + id.toString());
             }
 
-            var productQuantityAvailable = product.getQuantity_of_available();
+            var productQuantityAvailable = product.getQuantityOfAvailable();
             if (productQuantityAvailable.compareTo(orderedProductReq.getCountProduct()) < 0) {
                 throw new ProductsCountMismatchException(product.getTitle() + " - такого количества товара нет в наличии");
             }
@@ -151,14 +160,21 @@ public class OrderService {
                     .deliveryStatus(deliveryStatus)
                     .build()
             );
-            product.setQuantity_of_available(productQuantityAvailable - orderedProductReq.getCountProduct());
+            product.setQuantityOfAvailable(productQuantityAvailable - orderedProductReq.getCountProduct());
             productsToUpdate.add(product);
         }
+
+        log.info(objectMapper.writeValueAsString(orderRequest));
         userAddAmountSpent(user, orderRequest.getOrderPrice());
 
         userRepo.save(user);
         productRepository.saveAll(productsToUpdate);
+
+        log.info(objectMapper.writeValueAsString(orderRequest));
+
         orderedProductRepo.saveAll(orderedProductsToCreate);
+
+        log.info(objectMapper.writeValueAsString(orderRequest));
     }
 
     @Transactional(rollbackFor = {Exception.class})
@@ -185,7 +201,7 @@ public class OrderService {
         }
 
         for (OrderedProduct product : products) {
-            var productId = product.getProduct().getProduct_id();
+            var productId = product.getProduct().getProductId();
             if (!received.contains(productId) && !returned.contains(productId)) {
                 throw new ProductsCountMismatchException(Constants.PRODUCT_COUNT_MISMATCH);
             }

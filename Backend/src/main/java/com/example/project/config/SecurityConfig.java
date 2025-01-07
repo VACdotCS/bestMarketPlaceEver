@@ -1,8 +1,11 @@
 package com.example.project.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,12 +16,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
 import java.util.Arrays;
 
-import static com.example.project.entity.Role.ADMIN;
-import static com.example.project.entity.Role.MANAGER;
-import static com.example.project.entity.Role.USER;
+import static com.example.project.entity.Role.*;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -28,23 +28,24 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CorsConfigurationSource corsConfigurationSource;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth", "/api/v1/products/image/**", "/api/v1/auth/register")
                                 .permitAll()
-                                .requestMatchers(GET, "/api/v1/users/{id}", "/api/v1/orders/user", "/api/v1/product/image/{id}", "/api/v1/product/assortment", "/api/v1/product/categories", "/api/v1/product/special", "/api/v1/points").hasAnyRole(USER.name(), ADMIN.name(), MANAGER.name())
+                                .requestMatchers(GET, "/api/v1/users/{id}", "/api/v1/orders/user", "/api/v1/products/image/{id}", "/api/v1/products/assortment", "/api/v1/products/categories", "/api/v1/products/special", "/api/v1/points").hasAnyRole(USER.name(), ADMIN.name(), MANAGER.name())
                                 .requestMatchers(PATCH, "/api/v1/users/{id}", "/api/v1/users/password", "/api/v1/users/card").hasAnyRole(USER.name(), ADMIN.name(), MANAGER.name())
                                 .requestMatchers(POST, "/api/v1/orders").hasAnyRole(USER.name(), ADMIN.name(), MANAGER.name())
                                 .requestMatchers(GET, "/api/v1/orders/{id}").hasAnyRole(MANAGER.name())
                                 .requestMatchers(PUT, "/api/v1/orders/{id}").hasAnyRole(MANAGER.name())
                                 .requestMatchers(GET, "/api/v1/users").hasAnyRole(ADMIN.name())
-                                .requestMatchers(POST, "/api/v1/product", "/api/v1/points").hasAnyRole(ADMIN.name())
-                                .requestMatchers(PATCH, "/api/v1/product/{id}", "/api/v1/points/{id}").hasAnyRole(ADMIN.name())
+                                .requestMatchers(POST, "/api/v1/products", "/api/v1/points").hasAnyRole(ADMIN.name())
+                                .requestMatchers(PATCH, "/api/v1/products/{id}", "/api/v1/points/{id}").hasAnyRole(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -54,6 +55,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

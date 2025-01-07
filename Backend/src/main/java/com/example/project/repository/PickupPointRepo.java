@@ -13,5 +13,8 @@ public interface PickupPointRepo extends JpaRepository<PickupPoint, Integer> {
     @Query("SELECT pp FROM PickupPoint pp JOIN FETCH pp.manager")
     List<PickupPoint> findAllWithManager();
 
+    @Query("SELECT p FROM PickupPoint p")
+    List<PickupPoint> findAllWithoutRelationships();
+
     PickupPoint findByManager(User manager);
 }

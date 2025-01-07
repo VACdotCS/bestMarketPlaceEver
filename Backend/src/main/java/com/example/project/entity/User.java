@@ -1,6 +1,7 @@
 package com.example.project.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Builder
@@ -36,12 +38,13 @@ public class User implements UserDetails{
     private BigDecimal amount_spent;
     private Integer CVC;
     private String card_number;
-    private LocalDate validity;
+    private String validity;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(mappedBy = "manager", optional = true)
+    @OneToOne(mappedBy = "manager", optional = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private PickupPoint user_pickup_points;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

@@ -1,11 +1,11 @@
 package com.example.project.controller;
 
 import com.example.project.dto.request.AuthenticationRequest;
-import com.example.project.service.AuthenticationService;
 import com.example.project.dto.request.RegisterRequest;
 import com.example.project.exception.InvalidCredentialsException;
 import com.example.project.exception.UniqueEmailException;
 import com.example.project.exception.UniquePhoneException;
+import com.example.project.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,9 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> authenticate(@Valid
-            @RequestBody AuthenticationRequest request
-    ) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
         try {
             return new ResponseEntity<>(service.authenticate(request), HttpStatus.OK);
         } catch (InvalidCredentialsException e) {

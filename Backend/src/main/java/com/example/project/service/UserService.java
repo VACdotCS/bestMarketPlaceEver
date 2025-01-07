@@ -1,15 +1,16 @@
 package com.example.project.service;
 
 
-import com.example.project.dto.response.AuthenticationResponse;
 import com.example.project.common.Constants;
 import com.example.project.config.JwtService;
 import com.example.project.dto.request.ChangeCardUserRequest;
 import com.example.project.dto.request.ChangeInfoUserRequest;
 import com.example.project.dto.request.ChangePasswordRequest;
-import com.example.project.dto.response.*;
-import com.example.project.entity.User;
+import com.example.project.dto.response.AllUsersDTO;
+import com.example.project.dto.response.AuthenticationResponse;
+import com.example.project.dto.response.UserInfoDTO;
 import com.example.project.dto.response.UserProductStatsDTO;
+import com.example.project.entity.User;
 import com.example.project.exception.*;
 import com.example.project.repository.OrderedProductRepo;
 import com.example.project.repository.UserRepo;
@@ -84,7 +85,7 @@ public class UserService {
         user.setCVC(Integer.parseInt(request.getCVC()));
 
         try {
-            user.setValidity(LocalDate.parse(request.getValidity()));
+            user.setValidity(request.getValidity());
         } catch (DateTimeParseException e) {
             throw new IncorrectDateException(Constants.INCORRECT_DATE);
         }

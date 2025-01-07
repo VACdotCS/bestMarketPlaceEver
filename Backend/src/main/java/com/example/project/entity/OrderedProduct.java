@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ public class OrderedProduct {
     @Id
     @MapsId("product_id")
     @ManyToOne
+
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 

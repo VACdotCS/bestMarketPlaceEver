@@ -1,9 +1,10 @@
 package com.example.project.service;
 
 
-import com.example.project.dto.request.RegisterRequest;
+import com.example.project.common.Constants;
 import com.example.project.config.JwtService;
 import com.example.project.dto.request.AuthenticationRequest;
+import com.example.project.dto.request.RegisterRequest;
 import com.example.project.dto.response.AuthenticationResponse;
 import com.example.project.entity.Role;
 import com.example.project.entity.User;
@@ -16,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.project.common.Constants;
 
 @Service
 @RequiredArgsConstructor

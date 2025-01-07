@@ -11,18 +11,14 @@ public class CompactProductDTO {
 
     private String title;
 
-    private ImageDTO image;
+    private String image;
 
     private String unit;
 
     public CompactProductDTO(Product product) {
-        id = product.getProduct_id();
+        id = product.getProductId();
         title = product.getTitle();
-        image = new ImageDTO(
-                product.getProduct_image().getImage_id(),
-                product.getProduct_image().getImage(),
-                product.getProduct_image().getAlt()
-        );
+        image = product.getImageName();
         unit = product.getUnit();
     }
 }

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
 
 import java.util.List;
 
@@ -20,8 +19,10 @@ public class PickupPoint {
     @Column(name = "point_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String address;
-    @OneToOne(optional = true)
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", referencedColumnName = "user_id")
     private User manager;
 

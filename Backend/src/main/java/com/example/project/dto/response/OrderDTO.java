@@ -1,6 +1,5 @@
 package com.example.project.dto.response;
 
-import com.example.project.entity.OrderedProduct;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

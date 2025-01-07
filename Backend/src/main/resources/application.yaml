@@ -1,15 +1,17 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/${POSTGRESQL_DB}
+    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
     username: ${POSTGRESQL_USERNAME}
     password: ${POSTGRESQL_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: oracle.jdbc.OracleDriver
+    hikari:
+      auto-commit: false
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: update
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.OracleDialect
     show_sql: true
   sql:
     init:
@@ -28,3 +30,7 @@ application:
 logging:
   level:
     org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.transaction: TRACE
+

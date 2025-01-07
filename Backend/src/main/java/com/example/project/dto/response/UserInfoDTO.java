@@ -18,7 +18,7 @@ public class UserInfoDTO {
     private String phone;
     private String card_number;
     private Integer CVC;
-    private LocalDate validity;
+    private String validity;
     private Double user_discount;
     private BigDecimal amount_spent;
     private Integer order_count;

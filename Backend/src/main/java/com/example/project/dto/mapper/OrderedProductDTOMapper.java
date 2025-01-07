@@ -1,7 +1,7 @@
 package com.example.project.dto.mapper;
 
-import com.example.project.dto.response.OrderedProductDTO;
 import com.example.project.dto.response.CompactProductDTO;
+import com.example.project.dto.response.OrderedProductDTO;
 import com.example.project.entity.OrderedProduct;
 import org.springframework.stereotype.Service;
 
