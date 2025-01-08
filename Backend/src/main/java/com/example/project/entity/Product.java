@@ -48,4 +48,7 @@ public class Product {
 
     @OneToMany
     private List<OrderedProduct> productOrders;
+
+    @OneToOne(mappedBy = "merchant_id")
+    private User merchant;
 }

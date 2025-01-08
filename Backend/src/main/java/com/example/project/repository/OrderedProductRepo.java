@@ -1,6 +1,7 @@
 package com.example.project.repository;
 
 import com.example.project.dto.response.UserProductStatsDTO;
+import com.example.project.entity.Order;
 import com.example.project.entity.OrderedProduct;
 import com.example.project.entity.pk.IDOrderedProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +29,6 @@ public interface OrderedProductRepo extends JpaRepository<OrderedProduct, IDOrde
             "WHERE u.user_id = :userId " +
             "GROUP BY u.user_id")
     UserProductStatsDTO findUserProductStatsByUserId(@Param("userId") Integer userId);
+
+    OrderedProduct findOrderedProductByOrder(Order order);
 }
