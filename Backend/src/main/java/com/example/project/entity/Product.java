@@ -48,4 +48,8 @@ public class Product {
 
     @OneToMany
     private List<OrderedProduct> productOrders;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User merchant;
 }

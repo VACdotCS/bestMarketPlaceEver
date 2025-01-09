@@ -20,6 +20,7 @@ public class OrderedProductDTOMapper implements Function<OrderedProduct, Ordered
                 orderedProduct.getDeliveryDays(),
                 orderedProduct.getDeliveryStatus().getTitle(),
                 orderedProduct.getCompletionDate()
+                //orderedProduct.getProduct().getMerchant().getUser_id()
         );
     }
 

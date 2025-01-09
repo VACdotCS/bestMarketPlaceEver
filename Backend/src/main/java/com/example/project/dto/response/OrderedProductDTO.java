@@ -28,4 +28,7 @@ public class OrderedProductDTO {
 
     @JsonProperty("completion_date")
     private LocalDate completionDate;
+
+//    @JsonProperty("merchantId")
+//    private Integer  merchantId;
 }

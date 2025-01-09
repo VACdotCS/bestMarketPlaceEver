@@ -1,6 +1,7 @@
 package com.example.project.repository;
 
 import com.example.project.dto.response.UserProductStatsDTO;
+import com.example.project.entity.Order;
 import com.example.project.entity.OrderedProduct;
 import com.example.project.entity.pk.IDOrderedProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderedProductRepo extends JpaRepository<OrderedProduct, IDOrderedProduct> {
@@ -28,4 +30,8 @@ public interface OrderedProductRepo extends JpaRepository<OrderedProduct, IDOrde
             "WHERE u.user_id = :userId " +
             "GROUP BY u.user_id")
     UserProductStatsDTO findUserProductStatsByUserId(@Param("userId") Integer userId);
+
+    OrderedProduct findOrderedProductByOrder(Order order);
 }
+
+// Снова этот пидор записи не видит, это заказанные товары

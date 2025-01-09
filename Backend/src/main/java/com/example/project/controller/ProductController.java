@@ -5,14 +5,19 @@ import com.example.project.dto.response.ProductDTO;
 import com.example.project.entity.Category;
 import com.example.project.entity.CategoryProduct;
 import com.example.project.entity.Product;
+import com.example.project.entity.User;
 import com.example.project.entity.pk.IDCategoryProduct;
 import com.example.project.exception.ImageNotExistsException;
 import com.example.project.exception.ProductNotFoundException;
 import com.example.project.repository.CategoryProductRepo;
 import com.example.project.repository.CategoryRepo;
 import com.example.project.repository.ProductRepo;
+import com.example.project.repository.UserRepo;
 import com.example.project.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +25,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @AllArgsConstructor
+@Log4j2
 public class ProductController {
     private ProductService productService;
     private CategoryRepo categoryRepo;
     private CategoryProductRepo categoryProductRepo;
     private ProductRepo productRepo;
-
+    private UserRepo userRepo;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
 //    @GetMapping("/image/{imageId}")
 //    public ResponseEntity<byte[]> getImage(@PathVariable Integer imageId) {
@@ -43,6 +51,7 @@ public class ProductController {
 
     @PostMapping()
     public ResponseEntity<String> uploadProduct(
+            @RequestParam("merchantId") Integer merchantId,
             @RequestParam("image") String file,
             @RequestParam("title") String title,
             @RequestParam("price") BigDecimal price,
@@ -61,6 +70,20 @@ public class ProductController {
                 lastProductId = products.get(products.size() - 1).getProductId();
             }
 
+            Optional<User> merchant = this.userRepo.findByUserId(merchantId);
+
+            log.info(objectMapper.writeValueAsString(merchant));
+            log.info(merchantId);
+            log.info("Запрос прошёл");
+
+            if (merchant.isEmpty()) {
+                throw new BadRequestException("");
+            }
+
+            if (!merchant.get().getRole().name().equals("MERCHANT")) {
+                throw new BadRequestException("");
+            }
+
             Product newProduct = new Product();
             newProduct.setProductId(lastProductId + 1);
             newProduct.setPrice(price);
@@ -71,6 +94,7 @@ public class ProductController {
             newProduct.setImageName(file);
             newProduct.setQuantityOfAvailable(quantity_of_available);
             newProduct.setDescription(description);
+            newProduct.setMerchant(merchant.get());
 
             Optional<Category> categoryCandidate = categoryRepo.findCategoryByTitle(category);
             if (categoryCandidate.isEmpty()) {
@@ -90,6 +114,8 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.CREATED).body("Successful");
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } catch (JsonProcessingException | BadRequestException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -34,6 +34,8 @@ public class ProductDTO {
 
     private String categories;
 
+    private Integer merchantId;
+
     public ProductDTO(Product product) {
         id = product.getProductId();
         title = product.getTitle();
@@ -45,5 +47,6 @@ public class ProductDTO {
         unit = product.getUnit();
         deliveryDays = product.getDeliveryDays();
         categories = product.getCategories().getCategory().getTitle();
+        merchantId = product.getMerchant().getUser_id();
     }
 }
