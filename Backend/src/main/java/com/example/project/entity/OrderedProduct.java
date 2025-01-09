@@ -29,7 +29,6 @@ public class OrderedProduct {
     @Id
     @MapsId("product_id")
     @ManyToOne
-
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 

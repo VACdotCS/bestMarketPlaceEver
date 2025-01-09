@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: NONE
   datasource:
     url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
     username: ${POSTGRESQL_USERNAME}

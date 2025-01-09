@@ -19,6 +19,8 @@ public class DeliveryStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer status_id;
+
+
     private String title;
 
     @JsonIgnore

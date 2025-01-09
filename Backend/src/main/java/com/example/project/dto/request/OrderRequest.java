@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderRequest {
     @JsonProperty("pickup_point_id")
-    @NotNull(message = "ID пункта выдачи не может быть пустым")
+    @NotNull(message = "Выберите пункт выдачи в списке товаров")
     private Integer pickupPointId;
 
     @JsonProperty("products")

@@ -102,14 +102,23 @@ public class OrderService {
 
     @Transactional(rollbackFor = {Exception.class})
     public void create(OrderRequest orderRequest) throws NoSuchElementFoundException, ProductsCountMismatchException, JsonProcessingException {
+        log.info(new ObjectMapper().writeValueAsString(orderRequest));
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         List<PickupPoint> pickupPoints = pickupPointRepo
                 .findAllWithManager();
 
+        log.info(new ObjectMapper().writeValueAsString(pickupPoints));
+
         PickupPoint pp = pickupPoints.stream().filter((PickupPoint pickupPoint) -> Objects.equals(pickupPoint.getId(), orderRequest.getPickupPointId())).findFirst().get();
 
-        DeliveryStatus deliveryStatus = deliveryStatusRepo.findById(1).orElseThrow(); // id1 = В пути
+        log.info(new ObjectMapper().writeValueAsString(pp));
+
+        log.info(new ObjectMapper().writeValueAsString(deliveryStatusRepo.findAll()));
+
+        DeliveryStatus deliveryStatus = deliveryStatusRepo.findByTitle("В пути").orElseThrow(); // id1 = В пути
+
+        log.info(new ObjectMapper().writeValueAsString(deliveryStatus));
 
         List<OrderedProductRequest> orderedProductsReq = orderRequest.getOrderedProducts();
         List<OrderedProduct> orderedProductsToCreate = new ArrayList<>();

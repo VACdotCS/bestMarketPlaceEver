@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderedProductRepo extends JpaRepository<OrderedProduct, IDOrderedProduct> {
@@ -32,3 +33,5 @@ public interface OrderedProductRepo extends JpaRepository<OrderedProduct, IDOrde
 
     OrderedProduct findOrderedProductByOrder(Order order);
 }
+
+// Снова этот пидор записи не видит, это заказанные товары

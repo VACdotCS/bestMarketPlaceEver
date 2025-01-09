@@ -13,5 +13,6 @@ public record ProductResponse(
      String unit,
      Integer deliveryDays,
      Boolean deleted,
-     String category
+     String category,
+     Integer merchantId
 ) {}
